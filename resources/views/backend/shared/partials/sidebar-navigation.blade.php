@@ -21,6 +21,9 @@
             <ul>
                 <li><a href="{!! route('canvas.admin.post.index') !!}" @if (Route::is('canvas.admin.post.index') || Route::is('canvas.admin.post.edit')) class="active" @endif>All Posts <span class="label label-default label-totals">{!! Canvas\Models\Post::count() !!}</span></a></li>
                 <li><a href="{!! route('canvas.admin.post.create') !!}" @if (Route::is('canvas.admin.post.create')) class="active" @endif>Add New</a></li>
+                @if(\Canvas\Models\User::isAdmin(Auth::guard('canvas')->user()->role))
+                    <li><a href="{!! route('canvas.admin.post.approval-list') !!}" @if (Route::is('canvas.admin.post.approval-list')) class="active" @endif>Waiting Approval</a></li>
+                @endif
             </ul>
         </li>
         <li class="sub-menu @if (Route::is('canvas.admin.tag.index') || Route::is('canvas.admin.tag.create') || Route::is('canvas.admin.tag.edit'))active toggled @endif">

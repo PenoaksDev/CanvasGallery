@@ -18,6 +18,11 @@ class Constants
     const ROLE_ADMINISTRATOR = 1;
 
     /**
+     * @constant(ROLE_EDITOR)
+     */
+    const ROLE_EDITOR = 2;
+
+    /**
      * @constant(MAINTENANCE_MODE_ENABLED)
      */
     const MAINTENANCE_MODE_ENABLED = 0;
@@ -108,4 +113,7 @@ class Constants
         'post_tag' => 'canvas_post_tag',
         'settings' => 'canvas_settings',
     ];
+
+    const POST_UNAPPROVED = '0';
+    const POST_APPROVED = '1';
 }

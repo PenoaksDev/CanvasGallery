@@ -68,6 +68,8 @@ Route::group([
             'destroy' => 'canvas.admin.post.destroy',
         ],
     ]);
+    Route::get(RouteHelper::getAdminPrefix().'/post/approval-list', 'PostController@approvalList')->name('canvas.admin.post.approval-list');
+    Route::put(RouteHelper::getAdminPrefix().'/post/toggle-approval/{post}', 'PostController@toggleApproval')->name('canvas.admin.post.toggle-approval');
 
     /* Tag page routes. */
     Route::resource(RouteHelper::getAdminPrefix().'/tag', 'TagController', [

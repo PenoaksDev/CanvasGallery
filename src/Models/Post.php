@@ -26,7 +26,10 @@ class Post extends Model
      *
      * @var array
      */
-    protected $dates = ['published_at'];
+    protected $dates = [
+        'published_at',
+        'approved_at'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -44,6 +47,9 @@ class Post extends Model
         'is_published',
         'layout',
         'published_at',
+        'is_approved',
+        'approved_by',
+        'approved_at',
     ];
 
     /**
@@ -215,5 +221,15 @@ class Post extends Model
     public static function getAuthor($id)
     {
         return User::where('id', $id)->pluck('display_name')->first();
+    }
+
+    public function scopeUser($query, $user_id)
+    {
+        return $query->where('user_id', $user_id);
+    }
+
+    public function scopeNeedApproval($query)
+    {
+        return $query->where(['is_approved' => 0, 'is_published' => 1]);
     }
 }

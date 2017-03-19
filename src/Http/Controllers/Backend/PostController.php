@@ -8,6 +8,7 @@ use Canvas\Jobs\PostFormFields;
 use Canvas\Http\Controllers\Controller;
 use Canvas\Http\Requests\PostCreateRequest;
 use Canvas\Http\Requests\PostUpdateRequest;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -18,7 +19,14 @@ class PostController extends Controller
      */
     public function index()
     {
-        $data = Post::all();
+        $user = \Auth::guard('canvas')->user();
+        $data = Post::query();
+
+        if ($user->role == \Canvas\Meta\Constants::ROLE_USER) {
+            $data->user($user->id);
+        }
+
+        $data = $data->get();
 
         return view('canvas::backend.post.index', compact('data'));
     }
@@ -102,5 +110,33 @@ class PostController extends Controller
         Session::set('_delete-post', trans('canvas::messages.delete_success', ['entity' => 'Post']));
 
         return redirect()->route('canvas.admin.post.index');
+    }
+
+    public function approvalList()
+    {
+        $data = Post::needApproval()->get();
+
+        return view('canvas::backend.post.approval', compact('data'));
+    }
+
+    public function toggleApproval(Request $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        
+        if ($post->is_approved) {
+            $post->is_approved = false;
+            $post->approved_at = null;
+            $post->approved_by = null;
+        } else {
+            $post->is_approved = true;
+            $post->approved_at = date('Y-m-d H:i:s');
+            $post->approved_by = $request->user()->id;
+        }
+
+        $post->save();
+
+        Session::set('_update-post', 'Post Approved');
+
+        return redirect()->back();
     }
 }
