@@ -126,6 +126,11 @@ class Post extends Model
         return $this->content_raw;
     }
 
+    public function getSlugAttribute($value)
+    {
+        return str_slug($value);
+    }
+
     /**
      * Return URL to post.
      *
