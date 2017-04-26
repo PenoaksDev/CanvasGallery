@@ -237,4 +237,9 @@ class Post extends Model
     {
         return $query->where(['is_approved' => 0, 'is_published' => 1]);
     }
+
+    public function scopePublishable($query)
+    {
+        return $query->where(['is_approved' => 1, 'is_published' => 1]);
+    }
 }
