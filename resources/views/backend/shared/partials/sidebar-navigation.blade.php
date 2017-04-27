@@ -22,7 +22,7 @@
                 <li><a href="{!! route('canvas.admin.post.index') !!}" @if (Route::is('canvas.admin.post.index') || Route::is('canvas.admin.post.edit')) class="active" @endif>All Posts <span class="label label-default label-totals">{!! Canvas\Models\Post::count() !!}</span></a></li>
                 <li><a href="{!! route('canvas.admin.post.create') !!}" @if (Route::is('canvas.admin.post.create')) class="active" @endif>Add New</a></li>
                 @if(Auth::guard('canvas')->user()->role != 0)
-                    <li><a href="{!! route('canvas.admin.post.approval-list') !!}" @if (Route::is('canvas.admin.post.approval-list')) class="active" @endif>Waiting Approval <span class="label label-default label-totals">{!! Canvas\Models\Post::where('is_approved', 0)->count() !!}</span></a></li>
+                    <li><a href="{!! route('canvas.admin.post.approval-list') !!}" @if (Route::is('canvas.admin.post.approval-list')) class="active" @endif>Waiting Approval <span class="label label-default label-totals">{!! Canvas\Models\Post::where(['is_approved' => 0, 'is_published' => 1])->count() !!}</span></a></li>
                 @endif
             </ul>
         </li>
