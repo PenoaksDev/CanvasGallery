@@ -2,6 +2,7 @@
 
 namespace Canvas\Models;
 
+use Canvas\Meta\Constants;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Laravel\Scout\Searchable;
@@ -248,8 +249,10 @@ class Post extends Model
     {
         parent::boot();
 
-        static::addGlobalScope('order_by_created_at_desc', function (Builder $builder) {
-            $builder->orderBy('created_at', 'desc');
+        $posts = Constants::TABLES['posts'];
+
+        static::addGlobalScope('order_by_created_at_desc', function (Builder $builder) use ($posts) {
+            $builder->orderBy($posts . '.created_at', 'desc');
         });
     }
 }
