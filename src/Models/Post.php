@@ -3,6 +3,7 @@
 namespace Canvas\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Laravel\Scout\Searchable;
 use Canvas\Helpers\CanvasHelper;
 use Canvas\Services\Parsedowner;
@@ -157,7 +158,7 @@ class Post extends Model
         $return = [];
         foreach ($tags as $tag) {
             $url = route('canvas.blog.post.index', ['tag' => $tag]);
-            $return[] = '<a href="'.url($url).'">#'.e($tag).'</a>&nbsp;';
+            $return[] = '<a href="' . url($url) . '">#' . e($tag) . '</a>&nbsp;';
         }
 
         return $return;
@@ -172,10 +173,10 @@ class Post extends Model
     public function newerPost(Tag $tag = null)
     {
         $query =
-        static::where('published_at', '>', $this->published_at)
-            ->where('published_at', '<=', Carbon::now())
-            ->where('is_published', 1)
-            ->orderBy('published_at', 'asc');
+            static::where('published_at', '>', $this->published_at)
+                ->where('published_at', '<=', Carbon::now())
+                ->where('is_published', 1)
+                ->orderBy('published_at', 'asc');
         if ($tag) {
             $query = $query->whereHas('tags', function ($q) use ($tag) {
                 $q->where('tag', '=', $tag->tag);
@@ -194,9 +195,9 @@ class Post extends Model
     public function olderPost(Tag $tag = null)
     {
         $query =
-        static::where('published_at', '<', $this->published_at)
-            ->where('is_published', 1)
-            ->orderBy('published_at', 'desc');
+            static::where('published_at', '<', $this->published_at)
+                ->where('is_published', 1)
+                ->orderBy('published_at', 'desc');
         if ($tag) {
             $query = $query->whereHas('tags', function ($q) use ($tag) {
                 $q->where('tag', '=', $tag->tag);
@@ -241,5 +242,14 @@ class Post extends Model
     public function scopePublishable($query)
     {
         return $query->where(['is_approved' => 1, 'is_published' => 1]);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('order_by_created_at_desc', function (Builder $builder) {
+            $builder->orderBy('created_at', 'desc');
+        });
     }
 }
