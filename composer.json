@@ -1,13 +1,17 @@
 {
-	"name": "cnvs/easel",
-	"description": "Canvas Framework",
-	"keywords": ["canvas", "framework"],
+	"name": "penoaks/gallery",
+	"description": "Canvas (Gallery) Framework",
+	"keywords": ["canvas", "gallery", "penoaks", "framework"],
 	"type": "canvas-framework",
 	"license": "MIT",
 	"authors": [
 		{
 			"name": "Todd Austin",
 			"email": "austin.todd.j@gmail.com"
+		},
+		{
+			"name": "Amelia DeWitt",
+			"email": "theameliadewitt@gmail.com"
 		}
 	],
 	"require": {
