@@ -18,6 +18,7 @@
 		"php": ">=5.6.4",
         "doctrine/dbal": "^2.5",
 		"laravel/scout": "2.*",
+		"proengsoft/laravel-jsvalidation": "1.5.*",
 		"erusev/parsedown": "^1.6",
 		"maatwebsite/excel": "^2.1",
 		"illuminate/support": "5.*",
