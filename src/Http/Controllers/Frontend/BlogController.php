@@ -56,6 +56,6 @@ class BlogController extends Controller
             return redirect()->route('canvas.blog.post.index');
         }
 
-        return view($post->layout, compact('post', 'tag', 'slug', 'title', 'user', 'css', 'js', 'socialHeaderIconsUser'));
+        return view($post->layout ?: config('blog.post_layout'), compact('post', 'tag', 'slug', 'title', 'user', 'css', 'js', 'socialHeaderIconsUser'));
     }
 }

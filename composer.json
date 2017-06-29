@@ -16,7 +16,7 @@
 	],
 	"require": {
 		"php": ">=5.6.4",
-        "doctrine/dbal": "^2.5",
+    "doctrine/dbal": "^2.5",
 		"laravel/scout": "2.*",
 		"erusev/parsedown": "^1.6",
 		"maatwebsite/excel": "^2.1",
@@ -33,7 +33,7 @@
 		"symfony/css-selector": "~3.0"
 	},
 	"suggest": {
-		"cnvs/paper-dark": "Official dark theme for Canvas."
+		
 	},
 	"autoload": {
 		"classmap": [

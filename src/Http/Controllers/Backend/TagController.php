@@ -30,7 +30,7 @@ class TagController extends Controller
     {
         $data = Tag::all();
 
-        return view('canvas::backend.tag.index', compact('data'));
+        return view(config('blog.tag_index'), compact('data'));
     }
 
     /**
@@ -46,7 +46,7 @@ class TagController extends Controller
             $data[$field] = old($field, $default);
         }
 
-        return view('canvas::backend.tag.create', compact('data'));
+        return view(config('blog.tag_create'), compact('data'));
     }
 
     /**
@@ -82,7 +82,7 @@ class TagController extends Controller
             $data[$field] = old($field, $tag->$field);
         }
 
-        return view('canvas::backend.tag.edit', compact('data'));
+        return view(config('blog.tag_edit'), compact('data'));
     }
 
     /**
