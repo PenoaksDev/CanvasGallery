@@ -2,7 +2,9 @@
 
 namespace Canvas\Models;
 
+use Canvas\Meta\Constants;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Laravel\Scout\Searchable;
 use Canvas\Helpers\CanvasHelper;
 use Canvas\Services\Parsedowner;
@@ -26,7 +28,10 @@ class Post extends Model
      *
      * @var array
      */
-    protected $dates = ['published_at'];
+    protected $dates = [
+        'published_at',
+        'approved_at'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -44,6 +49,9 @@ class Post extends Model
         'is_published',
         'layout',
         'published_at',
+        'is_approved',
+        'approved_by',
+        'approved_at',
     ];
 
     /**
@@ -120,6 +128,11 @@ class Post extends Model
         return $this->content_raw;
     }
 
+    public function getSlugAttribute($value)
+    {
+        return str_slug($value);
+    }
+
     /**
      * Return URL to post.
      *
@@ -146,7 +159,7 @@ class Post extends Model
         $return = [];
         foreach ($tags as $tag) {
             $url = route('canvas.blog.post.index', ['tag' => $tag]);
-            $return[] = '<a href="'.url($url).'">#'.e($tag).'</a>&nbsp;';
+            $return[] = '<a href="' . url($url) . '">#' . e($tag) . '</a>&nbsp;';
         }
 
         return $return;
@@ -161,10 +174,10 @@ class Post extends Model
     public function newerPost(Tag $tag = null)
     {
         $query =
-        static::where('published_at', '>', $this->published_at)
-            ->where('published_at', '<=', Carbon::now())
-            ->where('is_published', 1)
-            ->orderBy('published_at', 'asc');
+            static::where('published_at', '>', $this->published_at)
+                ->where('published_at', '<=', Carbon::now())
+                ->where('is_published', 1)
+                ->orderBy('published_at', 'asc');
         if ($tag) {
             $query = $query->whereHas('tags', function ($q) use ($tag) {
                 $q->where('tag', '=', $tag->tag);
@@ -183,9 +196,9 @@ class Post extends Model
     public function olderPost(Tag $tag = null)
     {
         $query =
-        static::where('published_at', '<', $this->published_at)
-            ->where('is_published', 1)
-            ->orderBy('published_at', 'desc');
+            static::where('published_at', '<', $this->published_at)
+                ->where('is_published', 1)
+                ->orderBy('published_at', 'desc');
         if ($tag) {
             $query = $query->whereHas('tags', function ($q) use ($tag) {
                 $q->where('tag', '=', $tag->tag);
@@ -215,5 +228,31 @@ class Post extends Model
     public static function getAuthor($id)
     {
         return User::where('id', $id)->pluck('display_name')->first();
+    }
+
+    public function scopeUser($query, $user_id)
+    {
+        return $query->where('user_id', $user_id);
+    }
+
+    public function scopeNeedApproval($query)
+    {
+        return $query->where(['is_approved' => 0, 'is_published' => 1]);
+    }
+
+    public function scopePublishable($query)
+    {
+        return $query->where(['is_approved' => 1, 'is_published' => 1]);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        $posts = Constants::TABLES['posts'];
+
+        static::addGlobalScope('order_by_created_at_desc', function (Builder $builder) use ($posts) {
+            $builder->orderBy($posts . '.created_at', 'desc');
+        });
     }
 }

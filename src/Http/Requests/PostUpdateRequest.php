@@ -52,6 +52,9 @@ class PostUpdateRequest extends FormRequest
             'meta_description' => $this->meta_description,
             'is_published' => (bool) $this->is_published,
             'published_at' => $this->published_at,
+            'is_approved' => (bool) $this->is_approved,
+            'approved_by' => $this->approved_by,
+            'approved_at' => $this->approved_at,
             'layout' => config('blog.post_layout'),
         ];
     }

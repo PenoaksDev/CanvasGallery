@@ -13,7 +13,8 @@
                     <div class="card-header">
                         <ol class="breadcrumb">
                             <li><a href="{!! route('canvas.admin') !!}">Home</a></li>
-                            <li class="active">Posts</li>
+                            <li><a href="{!! route('canvas.admin.post.index') !!}">Posts</a></li>
+                            <li class="active">Approval List</li>
                         </ol>
                         <ul class="actions">
                             <li class="dropdown">
@@ -28,24 +29,20 @@
                             </li>
                         </ul>
                         @include('canvas::backend.shared.partials.errors')
+                        @include('canvas::backend.shared.partials.success')
                         <h2>Posts&nbsp;
-                            <a href="{!! route('canvas.admin.post.create') !!}" id="create-post"><i class="zmdi zmdi-plus-circle" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Create a new post"></i></a>
-
-                            <small>This page provides a comprehensive overview of all your blog posts. Click the <span class="zmdi zmdi-edit text-primary"></span> icon next to each post to update its contents or the <span class="zmdi zmdi-search text-primary"></span> icon to see what it looks like to your readers.</small>
+                            <small>This page provides list posts need to review and approved.
                         </h2>
                     </div>
 
                     <div class="table-responsive">
-                        <table id="posts" class="table table-condensed table-vmiddle">
+                        <table id="posts-approval" class="table table-condensed table-vmiddle">
                             <thead>
                                 <tr>
                                     <th data-column-id="id" data-type="numeric" data-order="desc">ID</th>
                                     <th data-column-id="title">Title</th>
                                     <th data-column-id="author">Author</th>
-                                    <th data-column-id="published">Status</th>
-                                    <th data-column-id="slug">Slug</th>
                                     <th data-column-id="date" data-type="date" data-formatter="humandate">Date</th>
-                                    <th data-column-id="edit_url" data-sortable="false" data-visible="false">Edit URL</th>
                                     <th data-column-id="view_url" data-sortable="false" data-visible="false">View URL</th>
                                     <th data-column-id="approval">Status Approval</th>
                                     <th data-column-id="commands" data-formatter="commands" data-sortable="false">Actions</th>
@@ -57,21 +54,27 @@
                                         <td>{{ $post->id }}</td>
                                         <td>{{ $post->title }}</td>
                                         <td>{{ $post->getAuthor($post->user_id) }}</td>
-                                        <td>{{ $post->is_published == 1 ? '<span class="label label-primary">Published</span>' : '<span class="label label-default">Draft</span>' }}</td>
-                                        <td>{{ $post->slug }}</td>
                                         @if($post->updated_at != $post->created_at)
                                             <td>{{ $post->updated_at->format('Y/m/d') . "<br/>" }} Last updated</td>
                                         @else
                                             <td>{{ $post->created_at->format('Y/m/d') . "<br/>" }} Published</td>
                                         @endif
-                                        <td>{!! route('canvas.admin.post.edit', $post->id) !!}</td>
                                         <td>{!! route('canvas.blog.post.show', $post->slug) !!}</td>
                                         <td>{{ ($post->is_approved == \Canvas\Meta\Constants::POST_APPROVED) ? '<span class="label label-success">Approved</span>' : '<span class="label label-warning">Waiting Approval</span>' }}</td>
                                     </tr>
-
                                 @endforeach
                             </tbody>
                         </table>
+
+                        @foreach ($data as $post)
+                            <form method="POST" id="post-approval-{{ $post->id }}" action="{!! route('canvas.admin.post.toggle-approval', $post->id) !!}" style="display:none">
+                                <input type="hidden" name="_token" value="{!! csrf_token() !!}">
+                                <input type="hidden" name="_method" value="PUT">
+                                <input type="hidden" name="is_approved" value="{{ \Canvas\Meta\Constants::POST_APPROVED }}">
+                                <input type="hidden" name="approved_by" value="{{ Auth::guard('canvas')->user()->id }}">
+                                <input type="hidden" name="approved_at" value="TRUE">
+                            </form>
+                        @endforeach
                     </div>
                 </div>
             </div>

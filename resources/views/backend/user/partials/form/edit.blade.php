@@ -18,6 +18,12 @@
                 </label>
 
                 <label class="radio radio-inline m-r-20">
+                    <input type="radio" name="role" value="2" @if ($data->role == 2) checked="checked" @endif>
+                    <i class="input-helper"></i>
+                    Editor
+                </label>
+
+                <label class="radio radio-inline m-r-20">
                     <input type="radio" name="role" value="1" @if (\Canvas\Models\User::isAdmin($data->role)) checked="checked" @endif>
                     <i class="input-helper"></i>
                     Administrator

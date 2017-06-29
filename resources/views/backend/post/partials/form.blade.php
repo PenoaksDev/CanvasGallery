@@ -69,6 +69,19 @@
                     <hr>
                 </div>
                 <div class="card-body card-padding">
+                    <label><i class="zmdi zmdi-check-all"></i>&nbsp;&nbsp;Status Approval</label>
+                    <div class="form-group" style="padding-top: 10px">
+                        <div class="toggle-switch toggle-switch-demo" data-ts-color="blue">
+                            <label for="is_published" class="ts-label">
+                                @if($is_approved == \Canvas\Meta\Constants::POST_APPROVED)
+                                    <span class="label label-success">Approved</span>
+                                @else
+                                    <span class="label label-warning">Waiting Approval</span>
+                                @endif
+                            </label>
+                        </div>
+                    </div>
+                    <br>
                     <label><i class="zmdi zmdi-eye"></i>&nbsp;&nbsp;Status</label>
                     <div class="form-group" style="padding-top: 10px">
                         <div class="toggle-switch toggle-switch-demo" data-ts-color="blue">

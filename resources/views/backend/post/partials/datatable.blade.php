@@ -18,5 +18,23 @@
                 }
             }
         });
+
+        $("#posts-approval").bootgrid({
+            labels: {
+                noResults: "No posts to approved yet."
+            },
+            css: {
+                icon: 'zmdi icon',
+                iconColumns: 'zmdi-view-module',
+                iconDown: 'zmdi-sort-amount-desc',
+                iconRefresh: 'zmdi-refresh',
+                iconUp: 'zmdi-sort-amount-asc'
+            },
+            formatters: {
+                "commands": function(column, row) {
+                    return '<a href="#" onclick="event.preventDefault(); document.getElementById(\'post-approval-' + row.id + '\').submit();"><button type="button" class="btn btn-icon command-edit waves-effect waves-circle"><span class="zmdi zmdi-check"></span></button></a>';
+                }
+            }
+        });
     });
 </script>

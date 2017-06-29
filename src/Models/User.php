@@ -94,4 +94,5 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return Post::where('user_id', $userId)->get()->count();
     }
+
 }

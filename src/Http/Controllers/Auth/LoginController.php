@@ -65,7 +65,7 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->route('canvas.admin');
+        return redirect()->route('canvas.home');
     }
 
     /**
