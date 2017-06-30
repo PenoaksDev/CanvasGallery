@@ -3,8 +3,8 @@
 namespace Canvas\Meta;
 
 /**
-* A home for global Canvas constants.
-*/
+ * A home for global Canvas constants.
+ */
 class Constants
 {
 	/**
@@ -18,14 +18,14 @@ class Constants
 	const POST_APPROVED = '1';
 
 	/**
-	 * @constant(ROLE_USER)
-	 */
-	const ROLE_USER = 0;
-
-	/**
 	 * @constant(ROLE_ADMINISTRATOR)
 	 */
-	const ROLE_ADMINISTRATOR = 1;
+	const ROLE_ADMINISTRATOR = 0;
+
+	/**
+	 * @constant(ROLE_USER)
+	 */
+	const ROLE_USER = 1;
 
 	/**
 	 * @constant(ROLE_EDITOR)
