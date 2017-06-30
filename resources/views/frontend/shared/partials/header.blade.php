@@ -15,6 +15,20 @@
             @if(!empty($socialHeaderIconsUser->linkedin))
                 <a href="http://linkedin.com/in/{{ $socialHeaderIconsUser->linkedin }}" target="_blank" id="social"><i class="fa fa-fw fa-linkedin text-muted" style="font-size: 14px"></i></a>
             @endif
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    {{ Config::get('languages')[App::getLocale()] }}
+                </a>
+                <ul class="dropdown-menu">
+                    @foreach (Config::get('languages') as $lang => $language)
+                        @if ($lang != App::getLocale())
+                            <li>
+                                <a href="{{ route('lang.switch', $lang) }}">{{$language}}</a>
+                            </li>
+                        @endif
+                    @endforeach
+                </ul>
+            </li>
         </div>
     </div>
 </div>

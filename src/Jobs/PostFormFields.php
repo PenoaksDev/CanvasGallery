@@ -44,6 +44,7 @@ class PostFormFields
         'updated_at' => '',
         'layout' => '',
         'tags' => [],
+        'language',
     ];
 
     /**

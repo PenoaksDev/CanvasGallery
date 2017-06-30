@@ -56,6 +56,7 @@ class PostUpdateRequest extends FormRequest
             'approved_by' => $this->approved_by,
             'approved_at' => $this->approved_at,
             'layout' => config('blog.post_layout'),
+            'language' => $this->language,
         ];
     }
 }

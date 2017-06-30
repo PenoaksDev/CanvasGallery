@@ -7,6 +7,7 @@ use Canvas\Models\Tag;
 use Canvas\Models\Post;
 use Canvas\Models\Settings;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Session;
 
 /**
  * Class BlogIndexData.
@@ -87,6 +88,7 @@ class BlogIndexData
         $posts = Post::with('tags')
             ->where('published_at', '<=', Carbon::now())
             ->where('is_published', 1)
+            ->where('language',Session::get('applocale'))
             ->orderBy('published_at', 'desc')
             ->simplePaginate(config('blog.posts_per_page'));
 

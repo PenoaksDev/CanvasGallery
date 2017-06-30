@@ -20,6 +20,7 @@ Route::group([
 
         Route::group(['prefix' => RouteHelper::getBlogPrefix()], function () {
             Route::get('/', 'Canvas\Http\Controllers\Frontend\BlogController@index')->name('canvas.blog.post.index');
+            Route::get('lang/{lang}', ['as'=>'lang.switch', 'uses'=>'Canvas\Http\Controllers\Frontend\LanguageController@switchLang']);
             Route::get('post/{slug}', 'Canvas\Http\Controllers\Frontend\BlogController@showPost')->name('canvas.blog.post.show');
         });
 
