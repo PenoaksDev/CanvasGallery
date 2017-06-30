@@ -25,7 +25,7 @@ class PostCreateRequest extends FormRequest
         return [
             'title' => 'required',
             'slug' => 'required|unique:'.CanvasHelper::TABLES['posts'],
-            'subtitle' => 'required',
+            /* 'subtitle' => 'required', */
             'published_at' => 'required',
         ];
     }

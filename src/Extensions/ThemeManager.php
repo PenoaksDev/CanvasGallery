@@ -172,6 +172,9 @@ class ThemeManager extends ExtensionManager
      */
     public function activateTheme($themeId)
     {
+        return false;
+
+        /*
         // Reset to stable base.
         $this->untheme();
 
@@ -202,6 +205,7 @@ class ThemeManager extends ExtensionManager
         }
 
         return true;
+        */
     }
 
     public function setActiveTheme($id)

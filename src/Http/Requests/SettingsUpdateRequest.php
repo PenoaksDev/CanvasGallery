@@ -25,7 +25,7 @@ class SettingsUpdateRequest extends FormRequest
     {
         return [
             'blog_title' => 'required',
-            'blog_subtitle' => 'required',
+            /*'blog_subtitle' => 'required',*/
         ];
     }
 }
