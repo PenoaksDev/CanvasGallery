@@ -69,16 +69,13 @@
 						<hr>
 					</div>
 					<div class="card-body card-padding">
-						<label><i class="zmdi zmdi-check-all"></i>&nbsp;&nbsp;Status Approval</label>
+						<label><i class="zmdi zmdi-check-all"></i>&nbsp;&nbsp;Post Approval</label>
 						<div class="form-group" style="padding-top: 10px">
 							<div class="toggle-switch toggle-switch-demo" data-ts-color="blue">
-								<label for="is_published" class="ts-label">
-									@if($is_approved == \Canvas\Meta\Constants::POST_APPROVED)
-									<span class="label label-success">Approved</span>
-									@else
-									<span class="label label-warning">Waiting Approval</span>
-									@endif
-								</label>
+								<label for="is_approved" class="ts-label"><span class="label label-warning">Waiting Approval</span></label>
+								<input {{ \Canvas\Helpers\CanvasHelper::checked($is_approved) }} type="checkbox" name="is_approved">
+								<label for="is_approved" class="ts-helper"></label>
+								<label for="is_approved" class="ts-label" style="margin-left: 20px; margin-right: 0"><span class="label label-success">Approved</span></label>
 							</div>
 						</div>
 						<br>
@@ -99,13 +96,13 @@
 							</div>
 						</div>
 						<br>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<div class="fg-line">
 								<label class="fg-label"><i class="zmdi zmdi-view-web"></i>&nbsp;&nbsp;Layout</label>
 								<input type="text" class="form-control" name="layout" id="layout" value="{{ $layout }}" placeholder="Layout" disabled>
 							</div>
 						</div>
-						<br>
+						<br> -->
 						@if(!Route::is('canvas.admin.post.create'))
 						<div class="form-group">
 							<div class="fg-line">
