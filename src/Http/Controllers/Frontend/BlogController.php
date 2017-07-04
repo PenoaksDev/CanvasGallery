@@ -21,14 +21,12 @@ class BlogController extends Controller
      */
     public function index(Request $request)
     {
-        $tag = $request->get('tag');
-        $data = $this->dispatch(new BlogIndexData($tag));
-        $layout = $tag ? Tag::layout($tag)->first() : config('blog.tag_layout');
-        $socialHeaderIconsUser = User::where('id', Settings::socialHeaderIconsUserId())->first();
-        $css = Settings::customCSS();
-        $js = Settings::customJS();
+    	$tag = $request->get('tag');
+    	$data = $this->dispatch(new BlogIndexData($tag));
+    	$layout = $tag ? Tag::layout($tag)->first() : config('blog.tag_layout');
+    	$socialHeaderIconsUser = User::where('id', Settings::socialHeaderIconsUserId())->first();
 
-        return view($layout, $data, compact('css', 'js', 'socialHeaderIconsUser'));
+    	return view($layout, $data, compact('socialHeaderIconsUser'));
     }
 
     /**
@@ -40,22 +38,20 @@ class BlogController extends Controller
      */
     public function showPost($slug, Request $request)
     {
-        $post = Post::with('tags')->whereSlug($slug)->firstOrFail();
-        $socialHeaderIconsUser = User::where('id', Settings::socialHeaderIconsUserId())->first();
-        $user = User::where('id', $post->user_id)->firstOrFail();
-        $tag = $request->get('tag');
-        $title = $post->title;
-        $css = Settings::customCSS();
-        $js = Settings::customJS();
+    	$post = Post::with('tags')->whereSlug($slug)->firstOrFail();
+    	$socialHeaderIconsUser = User::where('id', Settings::socialHeaderIconsUserId())->first();
+    	$user = User::where('id', $post->user_id)->firstOrFail();
+    	$tag = $request->get('tag');
+    	$title = $post->title;
 
-        if ($tag) {
-            $tag = Tag::whereTag($tag)->firstOrFail();
-        }
+    	if ($tag) {
+    		$tag = Tag::whereTag($tag)->firstOrFail();
+    	}
 
-        if (! $post->is_published && ! Auth::guard('canvas')->check()) {
-            return redirect()->route('canvas.blog.post.index');
-        }
+    	if (! $post->is_published && ! Auth::guard('canvas')->check()) {
+    		return redirect()->route('canvas.blog.post.index');
+    	}
 
-        return view($post->layout ?: config('blog.post_layout'), compact('post', 'tag', 'slug', 'title', 'user', 'css', 'js', 'socialHeaderIconsUser'));
+    	return view($post->layout ?: config('blog.post_layout'), compact('post', 'tag', 'slug', 'title', 'user', 'socialHeaderIconsUser'));
     }
 }

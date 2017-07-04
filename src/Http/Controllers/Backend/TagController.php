@@ -30,7 +30,7 @@ class TagController extends Controller
     {
         $data = Tag::all();
 
-        return view(config('blog.tag_index'), compact('data'));
+        return view('canvas::backend.tag.index', compact('data'));
     }
 
     /**
@@ -46,7 +46,7 @@ class TagController extends Controller
             $data[$field] = old($field, $default);
         }
 
-        return view(config('blog.tag_create'), compact('data'));
+        return view('canvas::backend.tag.create', compact('data'));
     }
 
     /**
@@ -58,8 +58,11 @@ class TagController extends Controller
      */
     public function store(TagCreateRequest $request)
     {
+        $data = $request->toArray();
+        $data['tag'] = \Illuminate\Support\Str::slug($data['tag']);
+
         $tag = new Tag();
-        $tag->fill($request->toArray())->save();
+        $tag->fill($data)->save();
         $tag->save();
 
         Session::set('_new-tag', trans('canvas::messages.create_success', ['entity' => 'tag']));
@@ -82,7 +85,7 @@ class TagController extends Controller
             $data[$field] = old($field, $tag->$field);
         }
 
-        return view(config('blog.tag_edit'), compact('data'));
+        return view('canvas::backend.tag.edit', compact('data'));
     }
 
     /**
@@ -95,8 +98,11 @@ class TagController extends Controller
      */
     public function update(TagUpdateRequest $request, $id)
     {
+        $data = $request->toArray();
+        $data['tag'] = \Illuminate\Support\Str::slug($data['tag']);
+
         $tag = Tag::findOrFail($id);
-        $tag->fill($request->toArray())->save();
+        $tag->fill($data)->save();
         $tag->save();
 
         Session::set('_update-tag', trans('canvas::messages.update_success', ['entity' => 'Tag']));

@@ -90,10 +90,10 @@ class Tag extends Model
      * @param string $default
      * @return string
      */
-    public static function layout($tag, $default = 'frontend.blog.index')
+    public static function layout($tag, $default = null)
     {
         $layout = static::whereTag($tag)->pluck('layout');
 
-        return $layout ?: $default;
+        return $layout ?: ($default ?: config('blog.tag_layout'));
     }
 }

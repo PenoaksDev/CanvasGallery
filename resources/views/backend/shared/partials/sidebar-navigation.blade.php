@@ -26,7 +26,7 @@
                 @endif
             </ul>
         </li>
-        @if(Auth::guard('canvas')->user()->role == 1)
+        @if(Auth::guard('canvas')->user()->role == \Canvas\Helpers\CanvasHelper::ROLE_ADMINISTRATOR)
         <li class="sub-menu @if (Route::is('canvas.admin.tag.index') || Route::is('canvas.admin.tag.create') || Route::is('canvas.admin.tag.edit'))active toggled @endif">
             <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-labels"></i> Tags</a>
             <ul>

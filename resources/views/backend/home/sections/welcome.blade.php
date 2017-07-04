@@ -1,8 +1,7 @@
 <div class="card">
     <div class="card-header">
-        <h2>Welcome to Canvas!
-            <small>Here are some helpful links we've gathered to get you started:
-            </small>
+        <h2>Welcome to Canvas Gallery!
+            <small>Here are some helpful links we've gathered to get you started:</small>
         </h2>
     </div>
     <div class="card-body card-padding">
@@ -37,12 +36,12 @@
             </div>
         </div>
 
-        @if($data['canvasVersion'] !== $data['latestRelease'])
+        <!-- @if($data['canvasVersion'] !== $data['latestRelease'])
             <hr>
             <p class="small" style="margin-bottom: 0;">
                 <a href="{!! url('http://github.com/cnvs/easel/releases/tag/') . $data['latestRelease'] !!}" target="_blank"><i class="zmdi zmdi-alert-circle"></i>&nbsp;<strong>Canvas {!! $data['latestRelease'] !!}</strong></a> is available! <a href="#" data-toggle="modal" data-target="#update"><strong>Please update now.</strong></a>
             </p>
-        @endif
+        @endif -->
 
     </div>
 </div>

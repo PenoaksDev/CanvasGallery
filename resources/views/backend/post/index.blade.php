@@ -47,7 +47,7 @@
                                     <th data-column-id="date" data-type="date" data-formatter="humandate">Date</th>
                                     <th data-column-id="edit_url" data-sortable="false" data-visible="false">Edit URL</th>
                                     <th data-column-id="view_url" data-sortable="false" data-visible="false">View URL</th>
-                                    <th data-column-id="approval">Status Approval</th>
+                                    <th data-column-id="approval">Post Approval</th>
                                     <th data-column-id="commands" data-formatter="commands" data-sortable="false">Actions</th>
                                 </tr>
                             </thead>

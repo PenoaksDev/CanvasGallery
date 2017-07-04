@@ -162,26 +162,6 @@ class Settings extends Model
     }
 
     /**
-     * Return the custom CSS styles entered by the user.
-     *
-     * return @string
-     */
-    public static function customCSS()
-    {
-        return $customCSS = self::where('setting_name', 'custom_css')->pluck('setting_value')->first();
-    }
-
-    /**
-     * Return the custom JS scripts entered by the user.
-     *
-     * return @string
-     */
-    public static function customJS()
-    {
-        return $customJS = self::where('setting_name', 'custom_js')->pluck('setting_value')->first();
-    }
-
-    /**
      * Return the user ID of the user whose social icons
      * will be used in the header of the blog.
      *

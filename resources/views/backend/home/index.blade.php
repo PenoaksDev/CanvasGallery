@@ -14,19 +14,19 @@
                 @endif
                 <div class="row">
                     @if(\Canvas\Models\User::isAdmin(Auth::guard('canvas')->user()->role))
-                        <div class="col-sm-6 col-md-6">
+                        <div class="col-sm-4 col-md-4">
                             @include('canvas::backend.home.sections.at-a-glance')
                         </div>
                     @endif
-                    <div class="col-sm-6 col-md-6">
+                    <div class="col-sm-4 col-md-4">
                         @include('canvas::backend.home.sections.quick-draft')
                     </div>
-                    <div class="col-sm-6 col-md-6">
+                    <div class="col-sm-4 col-md-4">
                         @include('canvas::backend.home.sections.recent-posts')
                     </div>
-                    <div class="col-sm-6 col-md-6">
-                        @include('canvas::backend.home.sections.canvas-news')
-                    </div>
+                    <!-- <div class="col-sm-6 col-md-6">
+                        include('canvas::backend.home.sections.canvas-news')
+                    </div> -->
                 </div>
             </div>
         </section>

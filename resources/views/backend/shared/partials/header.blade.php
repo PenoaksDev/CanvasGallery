@@ -38,7 +38,6 @@
         </li>
     </ul>
 
-
     <!-- Top Search Content -->
     <form role="form" method="GET" id="search" name="search" action="{!! route('canvas.admin.search.index') !!}">
         <input type="hidden" name="_token" value="{!! csrf_token() !!}">
